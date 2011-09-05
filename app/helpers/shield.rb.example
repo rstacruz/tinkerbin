@@ -1,0 +1,15 @@
+class Main
+  helpers Shield::Helpers
+
+  module UserHelpers
+    def current_user
+      authenticated(User)
+    end
+
+    def redirect_to_login
+      redirect '/login'
+    end
+  end
+
+  helpers UserHelpers
+end

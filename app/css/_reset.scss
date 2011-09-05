@@ -1,0 +1,46 @@
+@mixin ae-reset {
+  $reset-font: arial, helvetica, sans-serif !default;
+  $reset-font-size: 0.75em !default;
+  $reset-background: #fff !default;
+  $reset-font-color: #333 !default;
+  $reset-a-link-color: #379 !default;
+  $reset-a-visited-color: $reset-a-link-color * 1.1 !default;
+  $reset-a-hover-color: $reset-a-link-color * 0.9 !default;
+  $reset-heading-font: $reset-font !default;
+
+  // Reset margins
+  div, dl, dt, dd, ul, ol, li, form, fieldset, input, blockquote, th, td, legend { margin: 0; padding: 0; }
+  pre, p, blockquote, h1, h2, h3, h4, h5, h6    { margin: 1em 0 1em 0; }
+
+  h1                        { font-size: 1.4em; }
+  h2                        { font-size: 1.3em; }
+  h3                        { font-size: 1.2em; }
+  h4                        { font-size: 1.1em; }
+  h5                        { font-size: 0.9em; }
+  h6                        { font-size: 0.9em; }
+  ol, ul                    { margin-left: 2em; }
+
+  blockquote                { border-left: solid 2px #ccc; padding: 0 1em; margin-left: 0.2em; color: #888; }
+
+  // Body & wrapper
+  html, body                { margin: 0; padding: 0; }
+  button, body, td,
+  input, textarea           { font-family: $reset-font; font-size: 1em; }
+  body                      { font-size: $reset-font-size; line-height: 1.5; background: $reset-background; color: $reset-font-color; }
+  #all                      { margin: 0 auto; width: auto; position: relative; }
+
+  h1, h2, h3, h4, h5, h6    { font-family: $reset-heading-font; }
+  input, textarea           { line-height: 1.4; }
+  textarea                  { resize: vertical; }
+
+  // Links
+  a                         { color: $reset-a-link-color; text-decoration: none; font-weight: bold; }
+  a:visited                 { color: $reset-a-visited-color; }
+  a:hover                   { color: $reset-a-hover-color; text-decoration: underline; }
+  a img                     { border: 0; }
+
+  button                    { cursor: pointer; }
+
+  // HTML5
+  article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary { display: block; }
+}

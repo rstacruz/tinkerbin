@@ -1,0 +1,28 @@
+!!! 5
+-# 'no-js' is for modernizr; it will be changed to 'js' in runtime.
+%html{:class => 'no-js ' + browser.body_class}
+  - unless request.xhr?
+    %head
+      %meta(charset='UTF-8')
+      -# Use the latest IE engine, or Chrome frame.
+      %meta(http-equiv='X-UA-Compatible' content='IE=edge,chrome=1')
+
+      -# Mobile viewport optimization. j.mp/bplateviewport
+      %meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+      %title!= title
+      != css :main, media: 'screen, projection'
+      != css :print, media: 'print'
+
+      -# All JavaScript at the bottom, except for Modernizr which enables HTML5
+      -# elements & feature detects
+      != js_cdn :modernizr
+
+  %body
+    != yield
+
+    - unless request.xhr?
+      != js_cdn :jquery
+      != js :application
+      != js_chromeframe
+

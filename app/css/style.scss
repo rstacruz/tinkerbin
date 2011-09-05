@@ -1,0 +1,49 @@
+@import 'html5';
+@import 'settings';
+
+$reset-font: sans-serif;
+@include ae-reset;
+
+#remove-me {
+  & {
+    background: #faf7ef; padding: 50px;
+  }
+
+  pre { 
+    background: #faf7ef; padding: 10px;
+  }
+
+  #monk-welcome {
+    font-family: sans-serif; font-size: 11pt; line-height: 1.5;
+    width: 600px; margin: 20px auto; padding: 30px; background: #fff;
+    color: #333;
+  }
+
+  h1, h2, h3 {
+    font-family: georgia, serif; text-align: center;
+    padding: 5px 0; margin: 30px 0; font-size: 13pt; line-height: 1.5;
+    border-top: dotted 1px #ccc; color: #a55;
+    border-bottom: dotted 1px #ccc;
+  }
+
+  h1 {
+    border: 0; font-size: 32px; margin: 0; padding: 0;
+    color: #a55;
+  }
+
+  h3 {
+    border: 0; padding: 0; margin: 20px 0; text-align: left;
+    border-bottom: dotted 1px #ccc;
+    font-size: 12pt; color: #a88;
+  }
+
+  h1 + p {
+    font-size: 1.2em; text-align: center; font-weight: bold; padding: 0 0 30px 0;
+    margin: 0 0 30px 0; font-family: georgia, serif;
+    border-bottom: dotted 1px #ccc;
+  }
+
+  code { color: #999; }
+  a,
+  a:visited { color: #a55; text-decoration: none; border-bottom: dotted 1px #a55; }
+}

@@ -1,0 +1,11 @@
+class Main
+  migration "shield users" do
+    database.create_table :users do
+      primary_key :id
+      text :email
+      text :crypted_password
+
+      Numeric :level
+    end
+  end
+end

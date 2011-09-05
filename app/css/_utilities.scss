@@ -1,0 +1,58 @@
+// Like linear-gradient, but assumes that it's always vertical, has a
+// bgcolor fallback, supports IE, and supports an image parameter.
+//
+// @include gradient(#eee, #ddd, url(image.png));
+//
+@mixin gradient($start, $end, $image: 0) {
+  @if $image == 0 {
+    background-color: $start;
+    background-image: -moz-linear-gradient(top, $start, $end);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, $start),color-stop(1, $end));
+  }
+  @else {
+    background-image: -moz-linear-gradient(top, $start, $end), $image;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, $start),color-stop(1, $end)), $image;
+  }
+  $ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$start}', EndColorStr='#{$end}')";
+  filter: unquote($ms-filter);
+  -ms-filter: quote($ms-filter);
+}
+
+// Cross-browser PIE clear fix
+@mixin clearfix {
+  zoom: 1;
+  &:after { content: ''; clear: both; display: block; line-height: 0; height: 0; visibility: hidden; zoom: 1; }
+}
+
+// Like box-shadow, but supports layering multiple shadows.
+@mixin shadow($p1, $p2: 0, $p3: 0, $p4: 0) {
+  $full: $p1;
+  @if $p2 != 0 { $full: $full, $p2; }
+  @if $p3 != 0 { $full: $full, $p3; }
+  @if $p4 != 0 { $full: $full, $p4; }
+  @include experimental(box-shadow, $full, -moz, -webkit, -o, not -ms, not -khtml, official);
+}
+
+// For non-lists like menus
+@mixin non-list {
+  &, li { margin: 0; padding: 0; list-style-type: none; display: block; }
+  li { background-image: none; }
+}
+
+@mixin horiz-list {
+  @include non-list; @include clearfix;
+  li { float: left; }
+}
+
+// Be sure to overflow-hidden the container!
+@mixin center-list {
+  @include non-list;
+  position: relative; left: 50%; float: left;
+  li { position: relative; right: 50%; float: left; }
+}
+
+@mixin ellipsis {
+  text-overflow: ellipsis; text-wrap: none; word-wrap: none;
+  overflow: hidden; white-space: nowrap; -o-text-overflow: ellipsis;
+}
+

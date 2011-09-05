@@ -1,0 +1,10 @@
+@import "compass/css3";
+@import "utilities";
+@import "reset";
+
+// Examples
+$grey: #666;
+$red: #dd9099 * 1.1;
+$green: #597;
+
+$slate: saturate(#e0e2e6 * 0.5, 20%);

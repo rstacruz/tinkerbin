@@ -1,0 +1,23 @@
+class Main
+  get '/login' do
+    haml :'user/login', layout: false
+  end
+
+  post '/login' do
+    if login(User, params[:username], params[:password])
+      redirect '/admin'
+    else
+      @error = "Can't log you in."
+      haml :'user/login', layout: false
+    end
+  end
+    
+  get '/logout' do
+    logout(User)
+    redirect '/'
+  end
+
+  before '/admin/*' do |page|
+    ensure_authenticated User  unless page == 'login'
+  end
+end

@@ -1,0 +1,8 @@
+Configuration
+=============
+
+All config files are in `config/defaults/`. They will always be loaded.
+
+To change config defaults, copy any of the files in `config/defaults/` into
+here (`config/`). Any files here will not be committed to the repository.
+
