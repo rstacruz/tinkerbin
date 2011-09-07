@@ -9,6 +9,7 @@ gem "jsmin", "~> 1.0.1"
 # Template engines
 gem "haml", "~> 3.1.1"
 gem "sass", "~> 3.1.1"
+gem "less"
 
 # Sinatra extensions
 gem "sinatra-content-for", require: "sinatra/content_for"
@@ -24,9 +25,6 @@ gem "pistol", "~> 0.0.2"
 # Rtopia link helper
 gem "rtopia", "~> 0.2.3"
 
-# Markdown (you may want to remove these later)
-gem "maruku"
-
 # # Sequel ORM
 gem "sequel"
 gem "sinatra-sequel", require: "sinatra/sequel"
@@ -36,11 +34,6 @@ gem "sqlite3", group: [:test, :development]
 # # CoffeeScript support (with Heroku support)
 gem "coffee-script", require: "coffee_script"
 gem "therubyracer-heroku", "0.8.1.pre3", require: false  if ENV['HEROKU']
-
-gem "less"
-
-# # Internationalization
-gem "i18n"
 
 group :test do
   # Contexts for test/unit
