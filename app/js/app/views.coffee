@@ -79,10 +79,42 @@ class App.ChromeView extends Backbone.View
 
     this
 
+  buildSource: ->
+    """
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style type='text/css'>#{@css.val()}</style>
+    </head>
+    <body>
+    #{@html.val()}
+    <script type='text/javascript'>#{@javascript.val()}</script>
+    """
+
+  # isLocalable() [method]
+  # Checks if the thing can be rendered in the browser.
+  isLocalable: ->
+    @html.isLocalable() and @css.isLocalable() and @javascript.isLocalable()
+
   # run() [method]
   # Runs the snippet.
   # Called when you click the *Run* button.
-  run: (action='/preview') ->
+  run: ->
+    if @isLocalable()
+      doc = @$iframe[0].contentDocument
+      doc.open()
+      doc.write @buildSource()
+      doc.close()
+      #$(doc).find("html").html @buildSource()
+    else
+      @submit '/preview'
+
+  # autoUpdate() [method]
+  # Updates the preview if possible.
+  autoUpdate: ->
+    @run()  if @isLocalable() and @javascript.val() == ''
+
+  submit: (action='/preview') ->
     @$spinner.show().css opacity: 0.7
     @$iframe.animate opacity: 0.3, 'fast'
 
@@ -98,7 +130,7 @@ class App.ChromeView extends Backbone.View
       javascript_format:  @javascript.format()
 
   viewSource: ->
-    @run '/view_source'
+    @submit '/view_source'
 
   # Triggered when the preview is okay.
   onUpdate: ->
@@ -189,6 +221,11 @@ class App.CodeView extends Backbone.View
   focus: ->
     @editor.focus()
 
+  # isLocalable() [method]
+  # Checks if the thing can be rendered in the browser.
+  isLocalable: ->
+    @format() == 'plain'
+
   render: ->
     # Initialize the container.
     $(@el).addClass @options.type
@@ -216,6 +253,7 @@ class App.CodeView extends Backbone.View
       mode: 'xml'
       theme: 'default'
       gutter: true
+      onChange: -> App.chrome.autoUpdate()
 
     @refresh()
     this

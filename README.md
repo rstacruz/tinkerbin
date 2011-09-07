@@ -28,3 +28,11 @@ Start it like any Rack app:
 Run tests:
 
     $ rake test
+
+Todo
+----
+
+ - Notification that auto-updating is on/off
+ - Autoupdating for Less
+ - Save!
+ - Open

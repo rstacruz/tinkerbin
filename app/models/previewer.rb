@@ -49,8 +49,8 @@ class Previewer
       # Else, use our HTML5 layout.
       else
         @app.haml :_boilerplate, { layout: false, ugly: false },
-          head: [javascript, css].compact.join("\n"),
-          body: built_html
+          head: css,
+          body: [built_html, javascript].compact.join("\n")
       end
     end
   end
