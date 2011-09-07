@@ -222,7 +222,8 @@ class App.CodeView extends Backbone.View
 
   # Fix for the weird gutter disappearing act.
   refresh: ->
-    setTimeout (=> @editor.setValue('')), 0
+    value = @editor.getValue()
+    setTimeout (=> @editor.setValue(value)), 0
 
 # App.ToolbarView [view class]
 # The toolbar on the side. The main instance can be accessed
