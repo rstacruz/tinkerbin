@@ -231,6 +231,7 @@ class App.ToolbarView extends Backbone.View
   events:
     'click button.run':  'run'
     'click button.view': 'viewSource'
+    'click button.save': 'save'
     
   render: ->
     $(@el).html JST['editor/toolbar']()
@@ -241,3 +242,6 @@ class App.ToolbarView extends Backbone.View
 
   viewSource: ->
     App.chrome.viewSource()
+
+  save: ->
+    alert "Work in progress :-)\n--rstacruz"
