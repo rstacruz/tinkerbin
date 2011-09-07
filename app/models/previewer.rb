@@ -18,11 +18,11 @@ class Previewer
   end
 
   def javascript
-    "<script type='text/javascript'>%s</script>" % [ built_javascript ]
+    "<script type='text/javascript'>\n%s\n</script>" % [ built_javascript ]
   end
 
   def css
-    "<style type='text/css'>%s</style>" % [ built_css ]
+    "<style type='text/css'>\n%s\n</style>" % [ built_css ]
   end
 
   def error_area_proper
@@ -48,7 +48,7 @@ class Previewer
 
       # Else, use our HTML5 layout.
       else
-        @app.haml :_boilerplate, { :layout => false },
+        @app.haml :_boilerplate, { layout: false, ugly: false },
           head: [javascript, css].compact.join("\n"),
           body: built_html
       end
@@ -86,8 +86,8 @@ class Previewer
   def built_css
     @built_css ||=
       case @cssFormat
-      when 'scss' then @app.scss "@import 'compass/css3';\n#{@css}"
-      when 'sass' then @app.sass "@import 'compass/css3'\n#{@css}"
+      when 'scss' then @app.scss "@import 'compass/css3';\n#{@css}", sass_options
+      when 'sass' then @app.sass "@import 'compass/css3'\n#{@css}", sass_options
       when 'less' then @app.less @css
       else @css
       end
@@ -96,9 +96,13 @@ class Previewer
   def built_html
     @built_html ||=
       case @htmlFormat
-      when 'haml' then @app.haml @html, { layout: false, suppress_eval: true }
+      when 'haml' then @app.haml @html, { layout: false, suppress_eval: true, ugly: false }
       else @html
       end
+  end
+
+  def sass_options
+    { line_numbers: false, debug_info: false, style: :nested }
   end
 end
 
