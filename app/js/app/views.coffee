@@ -35,7 +35,20 @@ class App.ChromeView extends Backbone.View
   # Returns a hash of key events.
   keyEvents: ->
     'command enter': @run.bind this
-    'command shift 1': -> #Switch to HTML...
+    'cmd 1': @onTabAll.bind this
+    'cmd 2': @onTabHtml.bind this
+    'cmd 3': @onTabCss.bind this
+    'cmd 4': @onTabJavascript.bind this
+    'alt 1': @onTabAll.bind this
+    'alt 2': @onTabHtml.bind this
+    'alt 3': @onTabCss.bind this
+    'alt 4': @onTabJavascript.bind this
+
+  events:
+    'click [href=#html]':       'onTabHtml'
+    'click [href=#css]':        'onTabCss'
+    'click [href=#javascript]': 'onTabJavascript'
+    'click [href=#all]':        'onTabAll'
 
   render: ->
     $(@el).html JST['editor/chrome']()
@@ -60,6 +73,8 @@ class App.ChromeView extends Backbone.View
     _.each @typenames, (type) =>
       @[type] = (new App.CodeView type: type).render()
       $("#editorPane .area").append @[type].el
+
+    @html.focus()
 
     this
 
@@ -90,6 +105,32 @@ class App.ChromeView extends Backbone.View
     $iframe = @$("iframe")
     n = $iframe.parent().innerHeight()
     $iframe.css height: "#{n}px"
+
+  tab: 'all'
+
+  onTabHtml:       -> @onTab 'html'
+  onTabCss:        -> @onTab 'css'
+  onTabJavascript: -> @onTab 'javascript'
+  onTabAll:        -> @onTab 'all'
+
+  onTab: (tab) ->
+    return if @tab == tab
+
+    @$(".tabs a").removeClass 'active'
+    @$(".tabs a[href=##{tab}]").addClass 'active'
+
+    # This is what actually relayouts things.
+    @$("#editorPane").attr 'class', "pane #{tab}"
+
+    # Refresh to prevent the weird gutter look.
+    @html.refresh()
+    @css.refresh()
+    @javascript.refresh()
+
+    (@[tab] || @html).focus()
+
+    @tab = tab
+    false
 
 # App.CodeView [view class]
 # The code editor.
@@ -141,6 +182,9 @@ class App.CodeView extends Backbone.View
   format: ->
     @$format.val()
 
+  focus: ->
+    @editor.focus()
+
   render: ->
     # Initialize the container.
     $(@el).addClass @options.type
@@ -169,9 +213,12 @@ class App.CodeView extends Backbone.View
       theme: 'default'
       gutter: true
 
-    # Fix for the weird gutter disappearing act.
-    setTimeout (=> @editor.setValue('')), 0
+    @refresh()
     this
+
+  # Fix for the weird gutter disappearing act.
+  refresh: ->
+    setTimeout (=> @editor.setValue('')), 0
 
 # App.ToolbarView [view class]
 # The toolbar on the side. The main instance can be accessed

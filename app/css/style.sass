@@ -151,12 +151,29 @@ $pane-bg: #f3f3f3
     margin-right: 2px
     height: $height
     overflow: hidden
-    padding: 0 30px 0 10px
+    padding: 0 10px 0 10px
     +border-top-radius(2px)
     
     background: rgba(black, 0.3)
     color: #ddd
     text-shadow: 1px 1px 0 rgba(black, 0.2)
+
+    span.key
+      top: 0
+      font-size: 0.8em
+
+  a span.key
+    background: rgba(black, 0.8)
+    +box-shadow(none)
+    color: rgba(#7bd, 0.7)
+
+  strong span.key, a.active span.key
+    background: rgba(black, 0.1)
+    color: #888
+    text-shadow: 1px 1px 0 rgba(white, 0.04)
+
+  strong
+    padding-right: 50px
 
   a:hover
     background: rgba(black, 0.5)
@@ -249,20 +266,39 @@ article.code
     border: solid 1px #ccc
     overflow: hidden
 
-  .editor textareax
-    position: absolute
-    left: 10px
-    top: 10px
-    right: 10px
-    bottom: 10px
-
 //
 // Code editor positioning
 //
 #editorPane
-  .code.html
-    top: 0
-  .code.css
-    top: 33%
-  .code.javascript
-    top: 66%
+  &.all
+    .code.html
+      top: 0
+    .code.css
+      top: 33%
+    .code.javascript
+      top: 66%
+
+  &.html, &.css, &.javascript
+    .editor
+      bottom: 10px
+
+  &.html
+    .code.html
+      top: 0
+      height: 100%
+    .code.css, .code.javascript
+      display: none
+
+  &.css
+    .code.css
+      top: 0
+      height: 100%
+    .code.html, .code.javascript
+      display: none
+
+  &.javascript
+    .code.javascript
+      top: 0
+      height: 100%
+    .code.html, .code.css
+      display: none

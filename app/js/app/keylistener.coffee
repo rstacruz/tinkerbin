@@ -6,16 +6,18 @@ class App.KeyListener
 
   constructor: (context) ->
     $(context or window).bind 'keydown', (e) =>
-      @_onKeyEvent @_toKey(e)
+      @_onKeyEvent e, @_toKey(e)
 
   on: (spec, callback) ->
     @listeners.push {spec, callback}
 
-  _onKeyEvent: (key) ->
+  _onKeyEvent: (e, key) ->
     # metaKey, altKey, shiftKey, keyCode
     _.each @listeners, (listener) =>
       if @_keyMatchesSpec listener.spec, key
         listener.callback()
+        e.preventDefault()
+        e.stopPropagation()
 
   # Checks if a given spec (like `Command T`) matches a given key hash.
   _keyMatchesSpec: (spec, key) ->

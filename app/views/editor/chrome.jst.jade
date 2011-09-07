@@ -5,12 +5,20 @@ aside#toolbar
   // See editor/toolbar
 
 #area
-  #editorPane.pane
+  #editorPane.pane.all
     nav.tabs
-      a.active(href='#all') All
-      a(href='#html') HTML
-      a(href='#css') CSS
-      a(href='#javascript') JavaScript
+      a.active(href='#all')
+        | All
+        span.key Alt 1
+      a(href='#html')
+        | HTML
+        span.key Alt 2
+      a(href='#css')
+        | CSS
+        span.key Alt 3
+      a(href='#javascript')
+        | JavaScript
+        span.key Alt 4
     .area
 
   #outputPane.pane
