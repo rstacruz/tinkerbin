@@ -14,12 +14,10 @@ class Main
         [ i+1, lines[i] ]
       }
     end
-  end
 
-  post '/preview' do
-    preview = Previewer.new(params, self)
+    def handle_error(preview)
+      return  unless preview.error?
 
-    if preview.error?
       @error   = preview.error
       @area    = preview.error_area_proper
       @source  = params[preview.error_area]
@@ -27,9 +25,22 @@ class Main
       @context = get_context(@source, @line, 3)  if @line
 
       haml :error, layout: false
-    else
-      preview.html
     end
+
+    def view_source(html)
+      @source = get_context(html, 0, 5000)
+      haml :view_source, layout: false
+    end
+  end
+
+  post '/preview' do
+    preview = Previewer.new(params, self)
+    handle_error(preview) || preview.html
+  end
+
+  post '/view_source' do
+    preview = Previewer.new(params, self)
+    handle_error(preview) || view_source(preview.html)
   end
 end
 

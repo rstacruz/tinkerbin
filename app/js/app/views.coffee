@@ -35,6 +35,7 @@ class App.ChromeView extends Backbone.View
   # Returns a hash of key events.
   keyEvents: ->
     'command enter': @run.bind this
+    'command shift enter': @viewSource.bind this
     'cmd 1': @onTabAll.bind this
     'cmd 2': @onTabHtml.bind this
     'cmd 3': @onTabCss.bind this
@@ -81,12 +82,12 @@ class App.ChromeView extends Backbone.View
   # run() [method]
   # Runs the snippet.
   # Called when you click the *Run* button.
-  run: ->
+  run: (action='/preview') ->
     @$spinner.show().css opacity: 0.7
     @$iframe.animate opacity: 0.3, 'fast'
 
     new App.Submitter
-      action:             '/preview'
+      action:             action
       target:             'preview'
       onSubmit:           @onUpdate.bind(this)
       html:               @html.val()
@@ -95,6 +96,9 @@ class App.ChromeView extends Backbone.View
       html_format:        @html.format()
       css_format:         @css.format()
       javascript_format:  @javascript.format()
+
+  viewSource: ->
+    @run '/view_source'
 
   # Triggered when the preview is okay.
   onUpdate: ->
@@ -225,7 +229,8 @@ class App.CodeView extends Backbone.View
 # via `App.chrome.toolbar`.
 class App.ToolbarView extends Backbone.View
   events:
-    'click button.run': 'run'
+    'click button.run':  'run'
+    'click button.view': 'viewSource'
     
   render: ->
     $(@el).html JST['editor/toolbar']()
@@ -233,3 +238,6 @@ class App.ToolbarView extends Backbone.View
 
   run: ->
     App.chrome.run()
+
+  viewSource: ->
+    App.chrome.viewSource()
