@@ -32,7 +32,11 @@ Run tests:
 Todo
 ----
 
- - Notification that auto-updating is on/off
  - Autoupdating for Less
  - Save!
  - Open
+
+Done
+----
+
+ - Notification that auto-updating is on/off

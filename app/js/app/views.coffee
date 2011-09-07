@@ -75,6 +75,8 @@ class App.ChromeView extends Backbone.View
       @[type] = (new App.CodeView type: type).render()
       $("#editorPane .area").append @[type].el
 
+    @updateIndicator()
+
     @html.focus()
 
     this
@@ -96,6 +98,12 @@ class App.ChromeView extends Backbone.View
   isLocalable: ->
     @html.isLocalable() and @css.isLocalable() and @javascript.isLocalable()
 
+  updateIndicator: ->
+    if @isAutoUpdateable()
+      @$("#outputPane strong").html "Output <span class='auto'>&mdash; Auto-updating</span>"
+    else
+      @$("#outputPane strong").html "Output"
+
   # run() [method]
   # Runs the snippet.
   # Called when you click the *Run* button.
@@ -112,7 +120,10 @@ class App.ChromeView extends Backbone.View
   # autoUpdate() [method]
   # Updates the preview if possible.
   autoUpdate: ->
-    @run()  if @isLocalable() and @javascript.val() == ''
+    @run()  if @isAutoUpdateable()
+    
+  isAutoUpdateable: ->
+    @isLocalable() and @javascript.val() == ''
 
   submit: (action='/preview') ->
     @$spinner.show().css opacity: 0.7
@@ -174,6 +185,9 @@ class App.CodeView extends Backbone.View
   tagName: 'article'
   className: 'code'
 
+  events:
+    'change select': 'onFormatChange'
+      
   # options.type [attribute]
   # Either `html`, `js`, or `css`.
 
@@ -253,7 +267,7 @@ class App.CodeView extends Backbone.View
       mode: 'xml'
       theme: 'default'
       gutter: true
-      onChange: -> App.chrome.autoUpdate()
+      onChange: @onChange.bind this
 
     @refresh()
     this
@@ -262,6 +276,19 @@ class App.CodeView extends Backbone.View
   refresh: ->
     value = @editor.getValue()
     setTimeout (=> @editor.setValue(value)), 0
+
+  onChange: ->
+    App.chrome.autoUpdate()
+    App.chrome.updateIndicator()
+
+  onFormatChange: (e, f) ->
+    if @val() != ''
+      console.log e
+      console.log @format()
+      result = confirm "Do you want to change formats?\nThis will erase your current buffer."
+      e.preventDefault()
+
+    App.chrome.updateIndicator()
 
 # App.ToolbarView [view class]
 # The toolbar on the side. The main instance can be accessed
