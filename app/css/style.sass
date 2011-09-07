@@ -1,0 +1,268 @@
+@import 'html5'
+@import 'settings'
+
+$reset-font: sans-serif
+@include ae-reset
+
+// Reset overrides
+html, body
+  overflow: hidden
+
+a:hover
+  text-decoration: none
+
+$blue: #569
+$header-height: 40px
+$sidebar-width: 200px
+$pane-bg: #f3f3f3
+
+@import 'mixins'
+@import 'codemirror'
+@import 'codemirror_theme'
+@import 'codemirror_ext'
+
+//
+// Header
+//
+#header
+  position: absolute
+  left: 0
+  top: 0
+
+  +box-sizing(border-box) 
+  height: $header-height
+  line-height: $header-height
+  width: 100%
+  padding: 0 10px
+
+  text-shadow: 1px 1px 0 rgba(white, 0.1)
+  color: white
+  background: $blue
+  +background(linear-gradient(top, mix($blue, white, 80%), $blue))
+  +box-shadow(inset 0 1px 0 rgba(white, 0.3))
+
+#logo
+  font-family: shanti, sans-serif
+  font-weight: normal
+  font-size: 14pt
+  color: mix($blue, white, 20%)
+  text-shadow: 1px 1px 0 rgba(black, 0.1)
+  line-height: 50px
+
+//
+// Sidebar toolbar
+//
+#toolbar
+  position: absolute
+  left: 0
+  top: $header-height
+  bottom: 0
+
+  +box-sizing(border-box)
+  width: $sidebar-width
+  padding: 10px
+
+  background: $blue
+  color: white
+
+//
+// The actual area
+//
+#area
+  position: absolute
+  left: $sidebar-width
+  top: $header-height
+  right: 0
+  bottom: 0
+
+  +box-sizing(border-box)
+
+  background: #ddd
+
+//
+// The individual panes
+//
+#area .pane
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+  background: $pane-bg
+  width: 50%
+
+#area
+  #editorPane
+    right: 50%
+
+  #outputPane
+    left: 50%
+    +box-shadow(0 0 5px rgba(black, 0.2))
+
+//
+// Output pane
+//
+
+#outputPane
+  +box-sizing(border-box)
+  padding: 10px
+
+  .area
+    width: 100%
+    height: 100%
+
+  iframe
+    width: 100%
+    height: 100%
+    background: white
+    border: solid 1px #ddd
+
+  .spinner
+    position: absolute
+    top: 44%
+    right: 44%
+    width: 70px
+    height: 30px
+    background: #333 url(/images/load.gif?embed) center center no-repeat
+    +border-radius(6px)
+    z-index: 1
+
+//
+// Tabs on the panes
+//
+#area .pane nav.tabs
+  $height: 25px
+
+  &
+    position: absolute
+    top: -1 * $height
+    left: 0
+
+    height: $height
+    line-height: $height
+
+  a, strong
+    font-family: shanti, sans-serif
+    font-weight: normal
+
+    display: block
+    float: left
+    margin-right: 2px
+    height: $height
+    overflow: hidden
+    padding: 0 30px 0 10px
+    +border-top-radius(2px)
+    
+    background: rgba(black, 0.3)
+    color: #ddd
+    text-shadow: 1px 1px 0 rgba(black, 0.2)
+
+  a:hover
+    background: rgba(black, 0.5)
+
+  a.active, strong
+    background: $pane-bg
+    color: #777
+    text-shadow: 1px 1px 0 rgba(white, 0.1)
+    +box-shadow(2px 0 0 rgba(black, 0.2))
+
+//
+// Sidebar main buttons (inside ToolbarView)
+//
+
+#toolbar .bottom
+  position: absolute
+  bottom: 0
+  left: 0
+  width: 100%
+
+  +box-sizing(border-box)
+  padding: 10px
+
+  button
+    @extend .button
+    width: 100%
+    margin-top: 10px
+
+  button.run
+    @extend .button-green
+
+//
+// Code editor (CodeView)
+//
+article.code
+  $pad: 10px
+
+  +box-sizing(border-box)
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  height: 33%
+  padding: $pad
+
+  h3
+    margin: 0
+    padding: 0
+
+  h3
+    +background(linear-gradient(top, #f8f8f8, #eee))
+    border: solid 1px #ccc
+    border-bottom: 0
+    height: 30px
+    line-height: 30px
+
+    font-family: shanti, sans-serif
+    font-weight: normal
+    font-size: 9pt
+
+    color: #888
+    text-shadow: 1px 1px 0 rgba(white, 0.3)
+    text-transform: uppercase
+
+    padding: 0 10px
+
+  // Type
+  h3 label
+    float: right
+  
+  // The actual label
+  h3 label span
+    color: #aaa
+    text-transform: none
+
+  h3 select
+    width: 100px
+    margin-left: 10px
+
+  // Container for pre
+  .editor
+    background: white
+    +box-shadow(inset 1px 3px 0 rgba(black, 0.05), 1px 1px 0 rgba(white, 0.9))
+    +box-sizing(border-box)
+    position: absolute
+    top: $pad + 30px
+    left: $pad
+    right: $pad
+    bottom: 0
+    border: solid 1px #ccc
+    overflow: hidden
+
+  .editor textareax
+    position: absolute
+    left: 10px
+    top: 10px
+    right: 10px
+    bottom: 10px
+
+//
+// Code editor positioning
+//
+#editorPane
+  .code.html
+    top: 0
+  .code.css
+    top: 33%
+  .code.javascript
+    top: 66%

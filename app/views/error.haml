@@ -1,0 +1,16 @@
+!= css :error
+
+%hgroup
+  %h1= @error.message
+  - if @line
+    %h3= "Your %s has an error in line %i." % [ @area, @line ]
+  - else
+    %h3= "Your %s has an error. Check and try again." % [ @area ]
+
+- if @context
+  #context
+    - @context.each do |(number, source)|
+      %ul
+        %li{:class => ('active' if number == @line)}
+          %span.n= number
+          %pre!~ source.gsub('<', '&lt;').gsub(' ', '&nbsp;')

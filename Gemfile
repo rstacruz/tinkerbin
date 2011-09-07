@@ -13,7 +13,7 @@ gem "sass", "~> 3.1.1"
 # Sinatra extensions
 gem "sinatra-content-for", require: "sinatra/content_for"
 gem "sinatra-support", "~> 1.2.0", require: "sinatra/support"
-gem "sinatra-assetpack", "~> 0.0.6", require: "sinatra/assetpack"
+gem "sinatra-assetpack", git: "git://github.com/rstacruz/sinatra-assetpack.git", require: "sinatra/assetpack"
 
 # CSS extensions
 gem "compass", "~> 0.11.5"
@@ -35,7 +35,9 @@ gem "sqlite3", group: [:test, :development]
 
 # # CoffeeScript support (with Heroku support)
 gem "coffee-script", require: "coffee_script"
-gem "therubyracer-heroku", "0.8.1.pre3", require: false
+gem "therubyracer-heroku", "0.8.1.pre3", require: false  if ENV['HEROKU']
+
+gem "less"
 
 # # Internationalization
 gem "i18n"

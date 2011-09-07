@@ -19,7 +19,8 @@ class Main
     },
     backbone: {
       remote:     CDNJS_CDN % ['backbone.js/0.5.3/backbone-min.js'],
-      fallback:   '/js/vendor/backbone.js'
+      fallback:   '/js/vendor/backbone.js',
+      test:       'window.Backbone'
     }
   }
 end

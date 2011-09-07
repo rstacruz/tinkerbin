@@ -1,0 +1,22 @@
+#header
+  #logo Tinkerbin
+
+aside#toolbar
+  // See editor/toolbar
+
+#area
+  #editorPane.pane
+    nav.tabs
+      a.active(href='#all') All
+      a(href='#html') HTML
+      a(href='#css') CSS
+      a(href='#javascript') JavaScript
+    .area
+
+  #outputPane.pane
+    nav.tabs
+      strong Output
+    .area
+      iframe#preview(name='preview')
+      .spinner(style='display: none')
+

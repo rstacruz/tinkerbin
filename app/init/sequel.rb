@@ -1,7 +1,3 @@
-# Also do:
-# - Add sinatra-sequel to the Gemfile
-# - Rename migrations.sequel.rb.example to migrations.rb
-
 Sequel::Model.plugin :validation_helpers
 
 Sequel.extension :inflector
@@ -24,6 +20,8 @@ class Main
   end
 
   def self.run_migrations!(&blk)
-    load root('app/init/migrations.rb')
+    Dir[Main.root('app/migrations/*.rb')].sort.each { |f| load f }
   end
 end
+
+Main.run_migrations!
