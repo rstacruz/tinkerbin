@@ -282,11 +282,8 @@ class App.CodeView extends Backbone.View
     App.chrome.updateIndicator()
 
   onFormatChange: (e, f) ->
-    if @val() != ''
-      console.log e
-      console.log @format()
-      result = confirm "Do you want to change formats?\nThis will erase your current buffer."
-      e.preventDefault()
+    #if @val() != ''
+    #  result = confirm "Do you want to change formats?\nThis will erase your current buffer."
 
     App.chrome.updateIndicator()
 
