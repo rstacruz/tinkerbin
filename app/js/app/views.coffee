@@ -145,7 +145,7 @@ class App.ChromeView extends Backbone.View
 
   # Triggered when the preview is okay.
   onUpdate: ->
-    @$spinner.fadeOut 50
+    @$spinner.fadeOut 800
     @$iframe.stop().css opacity: 1.0
 
   onResize: ->
