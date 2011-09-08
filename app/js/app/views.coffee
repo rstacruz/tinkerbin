@@ -276,6 +276,8 @@ class App.CodeView extends Backbone.View
       theme: 'default'
       gutter: true
       onChange: @onChange.bind this
+      onFocus: @onFocus.bind this
+      onBlur: @onBlur.bind this
 
     @refresh()
     this
@@ -294,6 +296,12 @@ class App.CodeView extends Backbone.View
     #  result = confirm "Do you want to change formats?\nThis will erase your current buffer."
 
     App.chrome.updateIndicator()
+
+  onFocus: ->
+    $(@el).addClass 'focus'
+
+  onBlur: ->
+    $(@el).removeClass 'focus'
 
 # App.ToolbarView [view class]
 # The toolbar on the side. The main instance can be accessed

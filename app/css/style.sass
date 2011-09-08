@@ -223,6 +223,7 @@ article.code
   right: 0
   height: 33%
   padding: $pad
+  padding-bottom: 0
 
   h3
     margin: 0
@@ -270,6 +271,22 @@ article.code
     bottom: 0
     border: solid 1px #ccc
     overflow: hidden
+
+  >div
+    width: 100%
+    height: 100%
+
+  &.focus
+    >div
+      +box-shadow(0 0 6px rgba(#37a * 1.5, 0.35))
+      +border-radius(2px)
+
+    .editor
+      +box-shadow(none)
+
+    h3
+      +border-top-radius(2px)
+      +background(linear-gradient(top, #eee, #e0e0e0))
 
 //
 // Code editor positioning
