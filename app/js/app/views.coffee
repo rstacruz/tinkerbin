@@ -56,6 +56,7 @@ class App.ChromeView extends Backbone.View
     'mousedown [href=#css]':        'onTabCss'
     'mousedown [href=#javascript]': 'onTabJavascript'
     'mousedown [href=#all]':        'onTabAll'
+    'click a':                      'onTabClick'
 
   render: ->
     $(@el).html JST['editor/chrome']()
@@ -196,6 +197,9 @@ class App.ChromeView extends Backbone.View
 
     @tab = tab
     false
+
+  onTabClick: (e) ->
+    e.preventDefault()
 
   # Switches focus
   focusHtml:       -> @focus 'html'
