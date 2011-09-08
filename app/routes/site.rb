@@ -36,7 +36,6 @@ class Main
   end
 
   post '/preview' do
-    sleep 0.4  if settings.development?
     preview = Previewer.new(params, self)
     handle_error(preview) || preview.html
   end
