@@ -1,5 +1,5 @@
-# My project
-#### Description goes here
+# Tinkerbin
+#### [tinkerbin.heroku.com}(tinkerbin.heroku.com)
 
 Requirements
 ------------
@@ -39,4 +39,6 @@ Todo
 Done
 ----
 
+ - Local updating
  - Notification that auto-updating is on/off
+ - Focus styles
