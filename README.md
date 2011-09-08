@@ -42,3 +42,18 @@ Done
  - Local updating
  - Notification that auto-updating is on/off
  - Focus styles
+
+### Heroku setup log
+
+    heroku create tinkerbin --stack bamboo-mri-1.9.2
+    heroku addons:add custom_domains
+    heroku domains:add tinkerbin.com
+    heroku config:add ANALYTICS_ID=UA-25603016-1
+    git push heroku master
+
+DNS records: ([reference](http://devcenter.heroku.com/articles/custom-domains)
+
+    @ A 75.101.163.44
+    @ A 75.101.145.87
+    @ A 174.129.212.2
+    www 301_redirect tinkerbin.com
