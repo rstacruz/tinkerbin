@@ -17,16 +17,9 @@ class Main
       /js/setup.js
     ]
 
-    css :main, '/main.css', %w[
-      /css/style.css
-    ]
-
-    css :error, '/error.css', %w[
-      /css/error.css
-    ]
-
-    css :print, '/print.css', %w[
-      /css/print.css
-    ]
+    css :main, '/main.css', %w[/css/style.css]
+    css :error, '/error.css', %w[/css/error.css]
+    css :print, '/print.css', %w[/css/print.css]
+    css :loading, '/loading.css', %w[/css/loading.css]
   end
 end

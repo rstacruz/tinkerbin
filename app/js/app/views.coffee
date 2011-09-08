@@ -59,6 +59,7 @@ class App.ChromeView extends Backbone.View
     'click a':                      'onTabClick'
 
   render: ->
+    $('body').removeClass 'loading'
     $(@el).html JST['editor/chrome']()
 
     @$iframe = @$("iframe")
