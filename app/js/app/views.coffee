@@ -110,16 +110,20 @@ class App.ChromeView extends Backbone.View
     else
       @$("#outputPane strong").html "Output"
 
+  # updatePreview [method]
+  # Updates the preview `<iframe>` with the given HTML snippet.
+  updatePreview: (html) ->
+    doc = @$iframe[0].contentDocument
+    doc.open()
+    doc.write html
+    doc.close()
+
   # run() [method]
   # Runs the snippet.
   # Called when you click the *Run* button.
   run: ->
     if @isLocalable()
-      doc = @$iframe[0].contentDocument
-      doc.open()
-      doc.write @buildSource()
-      doc.close()
-      #$(doc).find("html").html @buildSource()
+      @updatePreview @buildSource()
     else
       @submit '/preview'
 
@@ -143,11 +147,7 @@ class App.ChromeView extends Backbone.View
       css_format:         @css.format()
       javascript_format:  @javascript.format()
       , (data) =>
-        console.log data
-        doc = @$iframe[0].contentDocument
-        doc.open()
-        doc.write data
-        doc.close()
+        @updatePreview data
         @onUpdate()
 
   viewSource: ->
