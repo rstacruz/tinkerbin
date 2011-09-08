@@ -45,12 +45,15 @@ $pane-bg: #f3f3f3
   +box-shadow(inset 0 1px 0 rgba(white, 0.3))
 
 #logo
-  font-family: shanti, sans-serif
-  font-weight: normal
-  font-size: 14pt
-  color: mix($blue, white, 20%)
-  text-shadow: 1px 1px 0 rgba(black, 0.1)
-  line-height: 50px
+  width: 171px
+  height: 41px
+  text-indent: -9999px
+  display: block
+  background: url(/images/logo.png?embed)
+  position: absolute
+  top: 14px
+  left: 10px
+  z-index: 1
 
 //
 // Sidebar toolbar
@@ -60,13 +63,15 @@ $pane-bg: #f3f3f3
   left: 0
   top: $header-height
   bottom: 0
+  line-height: 1.45
 
   +box-sizing(border-box)
   width: $sidebar-width
   padding: 10px
 
   background: $blue
-  color: white
+  color: #aac * 1.1
+  text-shadow: 1px 1px 0 rgba(black, 0.1)
 
 //
 // The actual area
@@ -360,7 +365,6 @@ article.code
 //
 
 #toolbar section.content
-  color: #aac
   margin: 0 -10px
   padding: 10px 10px
 
