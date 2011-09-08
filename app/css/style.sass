@@ -168,9 +168,7 @@ $pane-bg: #f3f3f3
     color: rgba(desaturate(#7bd, 30%), 0.7)
 
   strong span.key, a.active span.key
-    background: rgba(black, 0.1)
-    color: #888
-    text-shadow: 1px 1px 0 rgba(white, 0.04)
+    @extend span.key-lite
 
   // Auto updating indicator
   strong span.auto
@@ -277,10 +275,9 @@ article.code
 
   // The key
   h3 span.key
-    background: rgba(black, 0.2)
-    text-shadow: 1px 1px 0 rgba(black, 0.05)
-    color: #eee
+    @extend span.key-lite
     text-transform: none
+    font-size: 7pt
     top: -1
 
   // Container for pre
