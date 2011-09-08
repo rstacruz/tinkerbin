@@ -139,7 +139,7 @@ class App.ChromeView extends Backbone.View
     @$spinner.show().css opacity: 0.7
     @$iframe.css(opacity: 0.5).animate opacity: 0.1, 200
 
-    $.post action,
+    p = $.post action,
       html:               @html.val()
       css:                @css.val()
       javascript:         @javascript.val()
@@ -150,8 +150,16 @@ class App.ChromeView extends Backbone.View
         @updatePreview data
         @onUpdate()
 
+    p.error =>
+      @onError()
+      @onUpdate()
+
   viewSource: ->
     @submit '/view_source'
+
+  # Triggered when AJAX errors happen.
+  onError: ->
+    alert "Oops! Something went wrong."
 
   # Triggered when the preview is okay.
   onUpdate: ->

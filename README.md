@@ -1,5 +1,5 @@
 # Tinkerbin
-#### [tinkerbin.heroku.com}(tinkerbin.heroku.com)
+#### [tinkerbin.heroku.com](http://tinkerbin.heroku.com)
 
 Requirements
 ------------
