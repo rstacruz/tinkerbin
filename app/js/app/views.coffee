@@ -36,14 +36,20 @@ class App.ChromeView extends Backbone.View
   keyEvents: ->
     'command enter': @run.bind this
     'command shift enter': @viewSource.bind this
+
     'cmd 1': @onTabAll.bind this
     'cmd 2': @onTabHtml.bind this
     'cmd 3': @onTabCss.bind this
     'cmd 4': @onTabJavascript.bind this
+
     'alt 1': @onTabAll.bind this
     'alt 2': @onTabHtml.bind this
     'alt 3': @onTabCss.bind this
     'alt 4': @onTabJavascript.bind this
+
+    'alt h': @focusHtml.bind this
+    'alt c': @focusCss.bind this
+    'alt j': @focusJavascript.bind this
 
   events:
     'click [href=#html]':       'onTabHtml'
@@ -178,6 +184,17 @@ class App.ChromeView extends Backbone.View
 
     @tab = tab
     false
+
+  # Switches focus
+  focusHtml:       -> @focus 'html'
+  focusCss:        -> @focus 'css'
+  focusJavascript: -> @focus 'javascript'
+
+  # Switches focus to given field.
+  # The parameter `type` can be *html*, *css* or *javascript*.
+  focus: (type) ->
+    @onTab 'all'  unless @tab == 'all'
+    @[type].focus()
 
 # App.CodeView [view class]
 # The code editor.

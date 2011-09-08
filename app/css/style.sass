@@ -259,6 +259,14 @@ article.code
     width: 100px
     margin-left: 10px
 
+  // The key
+  h3 span.key
+    background: rgba(black, 0.2)
+    text-shadow: 1px 1px 0 rgba(black, 0.05)
+    color: #eee
+    text-transform: none
+    top: -1
+
   // Container for pre
   .editor
     background: white
@@ -303,6 +311,9 @@ article.code
   &.html, &.css, &.javascript
     .editor
       bottom: 10px
+
+    h3 span.key
+      display: none
 
   &.html
     .code.html
