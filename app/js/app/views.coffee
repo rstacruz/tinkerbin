@@ -133,25 +133,29 @@ class App.ChromeView extends Backbone.View
 
   submit: (action='/preview') ->
     @$spinner.show().css opacity: 0.7
-    @$iframe.animate opacity: 0.3, 'fast'
+    @$iframe.css(opacity: 0.5).animate opacity: 0.1, 200
 
-    new App.Submitter
-      action:             action
-      target:             'preview'
-      onSubmit:           @onUpdate.bind(this)
+    $.post action,
       html:               @html.val()
       css:                @css.val()
       javascript:         @javascript.val()
       html_format:        @html.format()
       css_format:         @css.format()
       javascript_format:  @javascript.format()
+      , (data) =>
+        console.log data
+        doc = @$iframe[0].contentDocument
+        doc.open()
+        doc.write data
+        doc.close()
+        @onUpdate()
 
   viewSource: ->
     @submit '/view_source'
 
   # Triggered when the preview is okay.
   onUpdate: ->
-    @$spinner.fadeOut 800
+    @$spinner.fadeOut 200
     @$iframe.stop().css opacity: 1.0
 
   onResize: ->
