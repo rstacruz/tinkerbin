@@ -13,7 +13,7 @@ html, body
 body
   background: #f5f5f1
   +box-shadow(inset 0 0 10px rgba(black, 0.1))
-  padding: 40px
+  padding: 0 40px
   color: #333
 
 body.view-source
@@ -53,7 +53,7 @@ hgroup
     font-family: palatino, georgia, serif
     font-style: italic
 
-#context
+#context, .source
   margin: 0 auto
   background: #eee
   +border-radius(3px)
@@ -72,7 +72,7 @@ hgroup
     background: white
     padding: 0 10px
     font-family: monaco, 'lucida console', monospace
-    font-size: 9pt
+    font-size: 8pt
 
   li.active pre
     background: #fefee0
@@ -87,5 +87,18 @@ hgroup
     width: 50px
 
   span.n, pre
-    line-height: 18pt
-    height: 18pt
+    line-height: 16pt
+    height: 16pt
+
+body.view-source
+  h3
+    $c: #aab
+    margin: 0
+    padding: 4px 10px
+    color: #eee
+    text-shadow: 1px 1px 0 rgba(black, 0.2)
+    font-size: 9pt
+    +background(linear-gradient(top, $c, $c * 0.9))
+    +box-shadow(inset 0 1px 0 rgba(white, 0.2))
+    border-top: solid 1px #aaa
+

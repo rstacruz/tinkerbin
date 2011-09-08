@@ -2,9 +2,17 @@
 != css :error
 
 %body.view-source
-  #context
-    - @source.each do |(number, source)|
-      %ul
-        %li{:class => ('active' if number == @line)}
-          %span.n= number
-          %pre!~ source.gsub('<', '&lt;').gsub(' ', '&nbsp;')
+  - if @html_source.any?
+    %h3 HTML
+    .source
+      != partial :_source, source: @html_source, type: 'html'
+
+  - if @css_source.any?
+    %h3 CSS
+    .source
+      != partial :_source, source: @css_source, type: 'css'
+
+  - if @javascript_source.any?
+    %h3 JavaScript
+    .source
+      != partial :_source, source: @javascript_source, type: 'javascript'

@@ -27,8 +27,10 @@ class Main
       haml :error, layout: false
     end
 
-    def view_source(html)
-      @source = get_context(html, 0, 5000)
+    def view_source(preview)
+      @html_source       = get_context(preview.built_html, 0, 5000)
+      @css_source        = get_context(preview.built_css, 0, 5000)
+      @javascript_source = get_context(preview.built_javascript, 0, 5000)
       haml :view_source, layout: false
     end
   end
@@ -41,7 +43,7 @@ class Main
 
   post '/view_source' do
     preview = Previewer.new(params, self)
-    handle_error(preview) || view_source(preview.html)
+    handle_error(preview) || view_source(preview)
   end
 end
 

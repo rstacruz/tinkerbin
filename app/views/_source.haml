@@ -1,0 +1,5 @@
+- source.each do |(number, source)|
+  %ul
+    %li{:class => ('active' if number == @line)}
+      %span.n= number
+      %pre!~ source.gsub('<', '&lt;').gsub(' ', '&nbsp;')
