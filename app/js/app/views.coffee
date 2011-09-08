@@ -219,6 +219,9 @@ class App.CodeView extends Backbone.View
         plain: 'Plain'
         coffee: 'CoffeeScript'
 
+  type: ->
+    @options.type
+
   # val() [method]
   # Sets or gets the value.
   val: (value) ->
@@ -239,6 +242,11 @@ class App.CodeView extends Backbone.View
   # Checks if the thing can be rendered in the browser.
   isLocalable: ->
     @format() == 'plain'
+
+  getMode: ->
+    return 'xml'  if @type() == 'html'
+    return 'css'  if @type() == 'css'
+    return 'javascript'  if @type() == 'javascript'
 
   render: ->
     # Initialize the container.
@@ -264,7 +272,7 @@ class App.CodeView extends Backbone.View
     @editor = CodeMirror.fromTextArea @$editor[0],
       lineNumbers: true
       matchBrackets: true
-      mode: 'xml'
+      mode: @getMode()
       theme: 'default'
       gutter: true
       onChange: @onChange.bind this
