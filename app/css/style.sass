@@ -11,7 +11,7 @@ html, body
 a:hover
   text-decoration: none
 
-$blue: #569
+$blue: saturate(#569, 10%) * 0.9
 $header-height: 40px
 $sidebar-width: 200px
 $pane-bg: #f3f3f3
@@ -163,9 +163,9 @@ $pane-bg: #f3f3f3
       font-size: 0.8em
 
   a span.key
-    background: rgba(black, 0.8)
+    background: rgba(black, 0.0)
     +box-shadow(none)
-    color: rgba(#7bd, 0.7)
+    color: rgba(desaturate(#7bd, 30%), 0.7)
 
   strong span.key, a.active span.key
     background: rgba(black, 0.1)
@@ -209,6 +209,22 @@ $pane-bg: #f3f3f3
 
   button.run
     @extend .button-green
+
+  button, button.run, button.view
+    text-align: left
+
+  button span.key
+    float: right
+    margin-right: -5px
+    margin-top: 5px
+    +border-radius(2px)
+    width: 50px
+    text-align: center
+    background: rgba(black, 0.1)
+
+    height: 20px
+    line-height: 20px
+    +box-shadow(1px 1px 0 rgba(white, 0.1), -1px -1px 0 rgba(black, 0.15))
 
 //
 // Code editor (CodeView)
@@ -294,8 +310,7 @@ article.code
 
     h3
       +border-top-radius(2px)
-      +background(linear-gradient(top, #f8f8fa, #eaf2f3))
-      color: #58a
+      color: #79a
 
 //
 // Code editor positioning
