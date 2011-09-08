@@ -52,10 +52,10 @@ class App.ChromeView extends Backbone.View
     'alt j': @focusJavascript.bind this
 
   events:
-    'click [href=#html]':       'onTabHtml'
-    'click [href=#css]':        'onTabCss'
-    'click [href=#javascript]': 'onTabJavascript'
-    'click [href=#all]':        'onTabAll'
+    'mousedown [href=#html]':       'onTabHtml'
+    'mousedown [href=#css]':        'onTabCss'
+    'mousedown [href=#javascript]': 'onTabJavascript'
+    'mousedown [href=#all]':        'onTabAll'
 
   render: ->
     $(@el).html JST['editor/chrome']()
