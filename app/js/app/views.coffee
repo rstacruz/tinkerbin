@@ -35,7 +35,7 @@ class App.ChromeView extends Backbone.View
   # Returns a hash of key events.
   keyEvents: ->
     'command enter': @run.bind this
-    'command shift enter': @viewSource.bind this
+    'alt enter':     @viewSource.bind this
 
     'cmd 1': @onTabAll.bind this
     'cmd 2': @onTabHtml.bind this
