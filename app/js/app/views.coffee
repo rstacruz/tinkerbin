@@ -31,25 +31,25 @@ class App.ChromeView extends Backbone.View
   # The `KeyListener` instance.
   listener: null
 
-  # keyEvents [method]
+  # getKeyEvents [method]
   # Returns a hash of key events.
-  keyEvents: ->
-    'command enter': @run.bind this
-    'alt enter':     @viewSource.bind this
+  getKeyEvents: ->
+    'command enter': @run
+    'alt enter':     @viewSource
 
-    'cmd 1': @onTabAll.bind this
-    'cmd 2': @onTabHtml.bind this
-    'cmd 3': @onTabCss.bind this
-    'cmd 4': @onTabJavascript.bind this
+    'cmd 1': @onTabAll
+    'cmd 2': @onTabHtml
+    'cmd 3': @onTabCss
+    'cmd 4': @onTabJavascript
 
-    'alt 1': @onTabAll.bind this
-    'alt 2': @onTabHtml.bind this
-    'alt 3': @onTabCss.bind this
-    'alt 4': @onTabJavascript.bind this
+    'alt 1': @onTabAll
+    'alt 2': @onTabHtml
+    'alt 3': @onTabCss
+    'alt 4': @onTabJavascript
 
-    'alt h': @focusHtml.bind this
-    'alt c': @focusCss.bind this
-    'alt j': @focusJavascript.bind this
+    'alt h': @focusHtml
+    'alt c': @focusCss
+    'alt j': @focusJavascript
 
   events:
     'mousedown [href=#html]':       'onTabHtml'
@@ -59,6 +59,10 @@ class App.ChromeView extends Backbone.View
     'click a':                      'onTabClick'
 
   render: ->
+    _.bindAll this,
+      'run', 'viewSource', 'onTabAll', 'onTabHtml', 'onTabCss', 'onTabJavascript',
+      'focusHtml', 'focusCss', 'focusJavascript'
+
     $('body').removeClass 'loading'
     $(@el).html JST['editor/chrome']()
 
@@ -71,7 +75,7 @@ class App.ChromeView extends Backbone.View
 
     # Listen for keys.
     @listener = new App.KeyListener
-    events = @keyEvents()
+    events = @getKeyEvents()
     for i of events
       @listener.on i, events[i]
 
@@ -283,6 +287,8 @@ class App.CodeView extends Backbone.View
     return 'javascript'  if @type() == 'javascript'
 
   render: ->
+    _.bindAll this, 'onChange', 'onFocus', 'onBlur'
+
     # Initialize the container.
     $(@el).addClass @options.type
 
@@ -309,9 +315,9 @@ class App.CodeView extends Backbone.View
       mode: @getMode()
       theme: 'default'
       gutter: true
-      onChange: @onChange.bind this
-      onFocus: @onFocus.bind this
-      onBlur: @onBlur.bind this
+      onChange: @onChange
+      onFocus:  @onFocus
+      onBlur:   @onBlur
 
     @refresh()
     this
