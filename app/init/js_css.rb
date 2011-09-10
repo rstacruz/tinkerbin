@@ -7,6 +7,7 @@ class Main
   register Sinatra::AssetPack
   assets do
     js :application, '/app.js', %w[
+      /js/lib/trim.js
       /js/vendor/json2.js
       /js/vendor/codemirror.js
       /js/vendor/codemirror_modes/*/*.js
