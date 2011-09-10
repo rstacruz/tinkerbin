@@ -2,4 +2,5 @@
 - if @document
   - content_for :footer do
     :javascript
-      App.load(#{@document.id.to_json});
+      //App.router.navigate("/#{@document.slug}");
+      App.load("#{@document.slug}");
