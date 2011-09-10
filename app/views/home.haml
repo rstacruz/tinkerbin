@@ -1,1 +1,5 @@
 - title "Tinkerbin"
+- if @document
+  - content_for :footer do
+    :javascript
+      App.load(#{@document.id.to_json});

@@ -3,6 +3,7 @@ class Main
     database.create_table :documents do
       primary_key :id
       String :data, text: true
+      String :slug
     end
   end
 end

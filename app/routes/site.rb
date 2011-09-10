@@ -3,6 +3,11 @@ class Main
     haml :home
   end
 
+  get '/:document' do |id|
+    @document = Document[id] or pass
+    haml :home
+  end
+
   helpers do
     # Gets the lines around a given string and line number.
     def get_context(string, line, spread)
