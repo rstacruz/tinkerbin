@@ -405,3 +405,44 @@ article.code
 
   &:hover
     opacity: 1.0
+
+//
+// Saved
+//
+#toolbar .alert
+  display: none
+  +background(linear-gradient(top, #404040, #303030))
+  padding: 10px
+  color: #888
+  margin: 20px -10px 0 -10px
+  text-align: center
+  border-top: solid 1px #222
+  border-bottom: solid 1px #222
+  +box-shadow(0 1px 0 rgba(white, 0.2), 0 -1px 0 rgba(white, 0.1))
+
+  h3, p
+    margin: 0
+    padding: 0
+
+  h3
+    font-size: 1.3em
+    font-family: shanti, sans-serif
+    font-weight: normal
+    color: #eee
+
+  input
+    +box-sizing(border-box)
+    +border-radius(2px)
+    +box-shadow(1px 1px 0 rgba(white, 0.1))
+    margin-top: 5px
+    width: 100%
+    border: solid 1px transparent
+    padding: 4px
+    color: desaturate($blue * 1.4, 40%)
+    text-align: center
+    background: mix(black, $blue, 80%)
+
+    &:focus
+      +box-shadow(1px 1px 0 rgba(white, 0.1), 0 0 10px $blue)
+      border: solid 1px $blue * 0.8
+      outline: 0
