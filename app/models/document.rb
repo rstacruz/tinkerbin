@@ -35,7 +35,7 @@ class Document < Sequel::Model
   end
 
   def self.[](id)
-    super(id) || find(slug: id)
+    find(slug: id) || super(id)
   end
 
 private
