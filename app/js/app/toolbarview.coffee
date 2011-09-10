@@ -27,11 +27,8 @@ class App.ToolbarView extends Backbone.View
 
   save: ->
     App.chrome.loaderStart()
-    setTimeout =>
-      App.save (doc, url) =>
-        App.chrome.loaderEnd()
-        if doc
-          @$alert.slideDown()
-          @$alert.find('input').val url
-    , 500
-
+    App.save (doc, url) =>
+      App.chrome.loaderEnd()
+      if doc
+        @$alert.slideDown()
+        @$alert.find('input').val url
