@@ -363,4 +363,18 @@ class App.ToolbarView extends Backbone.View
     App.chrome.viewSource()
 
   save: ->
-    alert "Work in progress :-)\n--rstacruz"
+    x = new App.Document
+    x.set
+      html:               App.chrome.html.val()
+      css:                App.chrome.css.val()
+      javascript:         App.chrome.javascript.val()
+      html_format:        App.chrome.html.format()
+      css_format:         App.chrome.css.format()
+      javascript_format:  App.chrome.javascript.format()
+
+    x.save {},
+      success: ->
+        alert "DONE. #{x.id}"
+
+      error: ->
+        App.chrome.onError()

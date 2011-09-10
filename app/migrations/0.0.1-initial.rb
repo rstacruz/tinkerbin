@@ -1,10 +1,8 @@
 class Main
-  migration "v0.0.1 create tables" do
-    database.create_table :categories do
-      String :id, primary_key: true
-      String :name
-
-      String :keywords, text: true
+  migration "v0.0.2 documents" do
+    database.create_table :documents do
+      primary_key :id
+      String :data, text: true
     end
   end
 end

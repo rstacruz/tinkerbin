@@ -44,5 +44,9 @@ class Main
     preview = Previewer.new(params, self)
     handle_error(preview) || view_source(preview)
   end
+
+  require 'sinatra/restapi'
+  register Sinatra::RestAPI
+  rest :Document
 end
 
