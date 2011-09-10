@@ -30,5 +30,6 @@ class App.ToolbarView extends Backbone.View
     App.save (doc, url) =>
       App.chrome.loaderEnd()
       if doc
+        App.router.navigate "/#{doc.get 'slug'}"
         @$alert.slideDown()
         @$alert.find('input').val url
