@@ -28,7 +28,7 @@ App.save = (callback) ->
 
   doc.save {},
     success: (doc) ->
-      @cache()
+      doc.cache()
       l = window.location
       url = "#{l.protocol}//#{l.host}/#{doc.get 'slug'}"
       callback doc, url  if callback?

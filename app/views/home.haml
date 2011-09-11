@@ -1,6 +1,5 @@
 - title "Tinkerbin"
-- if @document
+- if @url
   - content_for :footer do
     :javascript
-      //App.router.navigate("/#{@document.slug}");
-      App.load("#{@document.slug}");
+      App.router.navigate(#{@url.inspect});

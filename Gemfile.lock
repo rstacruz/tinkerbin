@@ -1,12 +1,19 @@
 GIT
   remote: git://github.com/rstacruz/sinatra-assetpack.git
-  revision: 868e3279bdb1cef603c975cb5295d066a3497be6
+  revision: 3d677aa29eca349e98eac358b4c53cd9797a5a97
   specs:
     sinatra-assetpack (0.0.8)
       jsmin
       rack-test
       sinatra
       tilt (>= 1.3.0)
+
+GIT
+  remote: git://github.com/rstacruz/sinatra-backbone.git
+  revision: f4dc5882e21a5446fd420a45ae0bb1a855ffeabb
+  specs:
+    sinatra-backbone (0.1.0.rc1)
+      sinatra
 
 GEM
   remote: http://rubygems.org/
@@ -94,6 +101,7 @@ DEPENDENCIES
   sequel
   sinatra (~> 1.2.6)
   sinatra-assetpack!
+  sinatra-backbone!
   sinatra-content-for
   sinatra-sequel
   sinatra-support (~> 1.2.0)

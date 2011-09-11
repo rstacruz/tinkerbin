@@ -8,6 +8,7 @@ class Main
 
   get '/:document' do |id|
     @document = Document[id] or pass
+    @url = "/#{@document.slug}"
     haml :home
   end
 
