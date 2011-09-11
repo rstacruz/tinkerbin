@@ -1,7 +1,7 @@
-require 'sinatra/jstsupport'
+require 'sinatra/jstpages'
 
 class Main
-  register Sinatra::JstSupport
+  register Sinatra::JstPages
   serve_jst '/js/jst.js'
 
   register Sinatra::AssetPack

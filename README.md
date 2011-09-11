@@ -45,13 +45,15 @@ Done
 
 ### Heroku setup log
 
+It was set up like this:
+
     heroku create tinkerbin --stack bamboo-mri-1.9.2
     heroku addons:add custom_domains
     heroku domains:add tinkerbin.com
     heroku config:add ANALYTICS_ID=UA-25603016-1
     git push heroku master
 
-DNS records: ([reference](http://devcenter.heroku.com/articles/custom-domains)
+DNS records: ([reference](http://devcenter.heroku.com/articles/custom-domains))
 
     @ A 75.101.163.44
     @ A 75.101.145.87
