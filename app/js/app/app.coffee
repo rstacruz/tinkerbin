@@ -2,9 +2,7 @@ App = window.App ?= {}
 
 # Loads a given document
 App.load = (doc_id) ->
-  doc = new App.Document
-  doc.id = doc_id
-  doc.fetch
+  doc = App.Document.fetch doc_id,
     success: (doc) ->
       App.chrome.html.format doc.get 'html_format'
       App.chrome.css.format doc.get 'css_format'
@@ -30,6 +28,7 @@ App.save = (callback) ->
 
   doc.save {},
     success: (doc) ->
+      @cache()
       l = window.location
       url = "#{l.protocol}//#{l.host}/#{doc.get 'slug'}"
       callback doc, url  if callback?

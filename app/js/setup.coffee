@@ -1,6 +1,3 @@
-Backbone.emulateHTTP = true
-Backbone.emulateJSON = true
-
 # App [object]
 # The application namespace.
 App   = window.App ?= {}

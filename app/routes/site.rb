@@ -1,4 +1,7 @@
+require 'sinatra/restapi'
 class Main
+  register Sinatra::RestAPI
+
   get '/' do
     haml :home
   end
@@ -50,8 +53,7 @@ class Main
     handle_error(preview) || view_source(preview)
   end
 
-  require 'sinatra/restapi'
-  register Sinatra::RestAPI
-  rest :Document
+  rest_create("/document") { Document.new }
+  rest_resource("/document/:id") { |id| Document[id] }
 end
 
