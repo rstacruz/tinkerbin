@@ -116,7 +116,7 @@ module Sinatra::RestAPI
   # but you can use them too if you need them.
   #
   module Helpers
-    # ### Helper: rest_respond(object) [helper]
+    # #### rest_respond(object)
     # Responds with a request with the given `object`.
     #
     # This will convert that object to either JSON or XML as needed, depending
@@ -137,7 +137,7 @@ module Sinatra::RestAPI
       end
     end
 
-    # ### Helper: rest_params [helper]
+    # #### rest_params
     # Returns the object from the request.
     #
     # If the client sent `application/json` (or `text/json`) as the content

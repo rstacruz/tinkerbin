@@ -1,8 +1,6 @@
 # ## Sinatra::JstPages [module]
 # A Sinatra plugin that adds support for JST (JavaScript Server Templates).
 #
-# This serves all JST files found in `/views/**/*.jst.*` as `/jst.js`.
-#
 # #### Layout engines
 # The extension of the file determines the layout engine to be used. For example,
 # if you have `foo.jst.tpl`, it uses Underscore.js's `_.template` to work on it.
@@ -46,7 +44,7 @@
 # [eco]: https://github.com/sstephenson/eco
 # [cs]: http://coffeescript.org
 #
-# #### Basic example
+# ### Basic example
 # Say you have a JST view written in Jade, placed in `views/editor/edit.jst.jade`:
 #
 #     # views/editor/edit.jst.jade
@@ -54,17 +52,19 @@
 #       form
 #         button Save
 #
-# And your app has JST files served in `/jst.js`:
+# This serves all JST files found in `/views/**/*.jst.*` (where `/views` is
+# your views directory as defined in Sinatra's `settings.views`) as
+# `http://localhost:4567/jst.js`.
 #
 #     class App < Sinatra::Base
 #       register Sinatra::JstPages
 #       serve_jst '/jst.js'
 #     end
 #
-# Now in your layout, you will need to include it like so:
+# Now in your layout, you will need to include it like so:  
+# *(TIP: If you're using the sinatra-assetpack gem, just add `/jst.js` to a package.)*
 # 
 #     <script type='text/javascript' src='/jst.js'></script>
-#     <!-- TIP: If you're using the sinatra-assetpack gem, just add `/jst.js` to a package. -->
 #
 # Now in your browser you may invoke `JST['templatename']`:
 #
@@ -73,11 +73,6 @@
 #
 #     // Renders the editor/edit template with template parameters
 #     JST['editor/edit']({name: 'Item Name'});
-#
-# #### Adding more engines
-# You can add more engines by subclassing `Sinatra::JstPages::Engine` to define
-# how files should be precompiled (in the server) and compiled (in the
-# browser). Then, use `register 'extension', EngineClass`.
 #
 module Sinatra
   module JstPages
@@ -121,12 +116,9 @@ module Sinatra
         get path do
           content_type :js
           jsts = jst_files.map { |(name, engine)|
-            contents = engine.precompile
-            fn       = engine.function
-
             %{
               JST[#{name.inspect}] = function() {
-                if (!c[#{name.inspect}]) c[#{name.inspect}] = (#{fn % [contents]});
+                if (!c[#{name.inspect}]) c[#{name.inspect}] = (#{engine.function});
                 return c[#{name.inspect}].apply(this, arguments);
               };
           }.strip.gsub(/^ {12}/, '')
@@ -156,48 +148,55 @@ end
 # This example will register `.jst.my` files to a new engine that uses
 # `My.compile`.
 #
-#     class MyEngine < Engine
-#       def function() "My.compile(%s)"; end
+#     module Sinatra::JstPages
+#       class MyEngine < Engine
+#         def function() "My.compile(%s)"; end
+#       end
+#
+#       register 'my', MyEngine
 #     end
 #
-#     JstPages.register 'my', MyEngine
-#
-module Sinatra
-  module JstPages
-    class Engine
-      attr_reader :file
-      def initialize(file)  @file = file; end
-      def contents()        File.read(@file); end
-
-      # The pre-processing that happens before sending it to the compiled
-      # JST file. Override me if needed.
-      def precompile
-        contents.inspect
-      end
-
-      # The JavaScript function to invoke on the precompile'd object.
-      def function
-        "_.template(%s)"
-      end
+module Sinatra::JstPages
+  class Engine
+    # ### file [attribute]
+    # The string path of the template file.
+    attr_reader :file
+    def initialize(file)
+      @file = file
     end
 
-    class HamlEngine < Engine
-      def function() "Haml.compile(%s)"; end
+    # ### contents [method]
+    # Returns the contents of the template file as a string.
+    def contents
+      File.read(@file)
     end
 
-    class JadeEngine < Engine
-      def function() "require('jade').compile(%s)"; end
+    # ### function [method]
+    # The JavaScript function to invoke on the precompile'd object.
+    #
+    # What this returns should, in JavaScript, return a function that can be
+    # called with an object hash of the params to be passed onto the template.
+    def function
+      "_.template(#{contents.inspect})"
     end
-
-    class EcoEngine < Engine
-      def function
-        "function() { var a = arguments.slice(); a.unshift(%s); return eco.compile.apply(eco, a); }"
-      end
-    end
-
-    register 'tpl', Engine
-    register 'jade', JadeEngine
-    register 'haml', HamlEngine
-    register 'eco', EcoEngine
   end
+
+  class HamlEngine < Engine
+    def function() "Haml.compile(#{contents.inspect})"; end
+  end
+
+  class JadeEngine < Engine
+    def function() "require('jade').compile(#{contents.inspect})"; end
+  end
+
+  class EcoEngine < Engine
+    def function
+      "function() { var a = arguments.slice(); a.unshift(#{contents.inspect}); return eco.compile.apply(eco, a); }"
+    end
+  end
+
+  register 'tpl', Engine
+  register 'jade', JadeEngine
+  register 'haml', HamlEngine
+  register 'eco', EcoEngine
 end

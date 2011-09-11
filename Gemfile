@@ -15,6 +15,7 @@ gem "less"
 gem "sinatra-content-for", require: "sinatra/content_for"
 gem "sinatra-support", "~> 1.2.0", require: "sinatra/support"
 gem "sinatra-assetpack", git: "git://github.com/rstacruz/sinatra-assetpack.git", require: "sinatra/assetpack"
+gem "sinatra-backbone", git: "git://github.com/rstacruz/sinatra-backbone.git", require: false
 
 # CSS extensions
 gem "compass", "~> 0.11.5"
