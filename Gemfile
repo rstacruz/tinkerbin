@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 # Sinatra microframework
-gem "sinatra", "~> 1.2.6", require: "sinatra/base"
+gem "sinatra", "~> 1.3.0", require: "sinatra/base"
 
 # JS Compression
 gem "jsmin", "~> 1.0.1"
@@ -12,7 +12,7 @@ gem "sass", "~> 3.1.1"
 gem "less"
 
 # Sinatra extensions
-gem "sinatra-content-for", require: "sinatra/content_for"
+gem "sinatra-contrib", require: "sinatra/content_for"
 gem "sinatra-support", "~> 1.2.0", require: "sinatra/support"
 gem "sinatra-assetpack", git: "git://github.com/rstacruz/sinatra-assetpack.git", require: "sinatra/assetpack"
 gem "sinatra-backbone", git: "git://github.com/rstacruz/sinatra-backbone.git", require: false
